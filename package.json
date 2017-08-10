@@ -11,9 +11,21 @@
   "dependencies": {
     "discord.js": "^11.1.0",
     "discord.js-commando": "^0.9.0",
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
     "opusscript": "0.0.3",
     "youtube-dl": "^1.11.1",
     "ytdl": "^0.7.0",
     "ytdl-core": "^0.15.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TijsDeBelie/ParrotBot.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/TijsDeBelie/ParrotBot/issues"
+  },
+  "homepage": "https://github.com/TijsDeBelie/ParrotBot#readme",
+  "devDependencies": {}
 }
