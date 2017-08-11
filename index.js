@@ -2,7 +2,7 @@
 require('dotenv').config();
 const Discord = require('discord.js');
 const path = require('path');
-const { CommandoClient, SQLiteProvider } = require('discord.js-commando');
+const { CommandoClient } = require('discord.js-commando');
 
 var key = process.env.LOGINTOKEN;
 
