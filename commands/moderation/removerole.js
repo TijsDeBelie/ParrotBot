@@ -32,34 +32,29 @@ module.exports = class SayCommand extends Command {
     }
 
     run(msg, args) {
-        if (msg.channel.type !== 'dm')
-            if (!msg.channel.permissionsFor(this.client.user).has('MANAGE_ROLES')) {
+        const { user, rank } = args;
+        let role = msg.guild.roles.find("name", rank);
+        if (!msg.member.hasPermission('MANAGE_ROLES'))
+            return msg.say('Error! I don\'t have permission to Manage Roles!');
+        else {
 
 
+            let userToModify = msg.mentions.members.first();
 
-                return msg.say('Error! I don\'t have permission to Manage Roles!');
-            }
-            else {
-                const { user, rank } = args;
+            try {
 
-                let role = msg.guild.roles.find("name", rank);
-
-                let userToModify = msg.mentions.members.first();
-
-                try {
-
-                    if (userToModify.removeRole(role).catch(console.error)) {
-                        return msg.say(userToModify + " has been removed from: " + rank)
-                    }
-
-
-                } catch (ex) {
-
-                    console.log(ex.stack);
-                    msg.say("this command could not be executed, please make sure you are not removing a role that has not been assigned to you!")
-
+                if (userToModify.removeRole(role).catch(console.error)) {
+                    return msg.say(userToModify + " has been removed from: " + rank)
                 }
+
+
+            } catch (ex) {
+
+                console.log(ex.stack);
+                msg.say("this command could not be executed, please make sure you are not removing a role that has not been assigned to you!")
+
             }
+        }
 
 
 

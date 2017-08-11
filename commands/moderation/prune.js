@@ -23,7 +23,7 @@ module.exports = class prune extends Command {
 
         let { number } = args
 
-        if (!message.member.hasPermission("MANAGE_MESSAGES")) {
+        if (!message.member.hasPermission('MANAGE_MESSAGES')){
 
             return message.channel.send('You don\'t have permission to manage messages')
 
@@ -31,7 +31,7 @@ module.exports = class prune extends Command {
 
         message.channel.fetchMessages({ limit: number }).then(messages => {
             message.channel.bulkDelete(messages)
-            msg.say(`Purged ${messages.size} messages.`)
+            message.say(`Purged ${messages.size} messages.`)
             return;
         })
     }

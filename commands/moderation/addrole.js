@@ -33,21 +33,15 @@ module.exports = class SayCommand extends Command {
     }
 
     run(msg, args) {
-        if (msg.channel.type !== 'dm')
-            if (!msg.channel.permissionsFor(this.client.user).has('MANAGE_ROLES')) {
+        const { user, rank } = args;
+        let role = msg.guild.roles.find("name", rank);
+            if (!msg.member.hasPermission('MANAGE_ROLES'))
                 return msg.say('Error! I don\'t have permission to Manage Roles!');
+            else {
 
 
-            } else {
-
-
-                const { user, rank } = args;
-
-                let role = msg.guild.roles.find("name", rank);
-
-                // or the person who made the command: let member = message.member;
+                
                 let userToModify = msg.mentions.members.first();
-                // Add the role!
 
                 try {
 
