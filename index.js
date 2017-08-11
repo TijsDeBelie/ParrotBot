@@ -1,32 +1,10 @@
 //discord.js-commando
 require('dotenv').config();
-const { spawn } = require('child_process');
 const Discord = require('discord.js');
 const path = require('path');
-const { CommandoClient, SQLiteProvider } = require('discord.js-commando');
-var express = require('express');
-var app = express();
+const { CommandoClient } = require('discord.js-commando');
 
 var key = process.env.LOGINTOKEN;
-
-app.set('port', (process.env.PORT || 5000));
-
-app.use(express.static(__dirname + '/public'));
-
-// views is directory for all template files
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
-
-app.get('/', function(request, response) {
-  response.render('pages/index');
-});
-
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
-});
-
-const env = Object.assign({}, process.env, {PORT: 5000});
-//const child = spawn('node', ['index.js'], {env});
 
 const client = new CommandoClient({
     commandPrefix: '$',
