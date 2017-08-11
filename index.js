@@ -30,7 +30,7 @@ const child = spawn('node', ['index.js'], {env});
 
 const client = new CommandoClient({
     commandPrefix: '$',
-    owner: 'AEnterprise#4693',
+	owner: '243275264497418250',
     disableEveryone: true,
     unknownCommandResponse: false
 });
