@@ -23,7 +23,7 @@ module.exports = class SayCommand extends Command {
                 {
                     key: 'rank',
                     prompt: 'wich rank should the mentionned user get?',
-                    type: 'text'
+                    type: 'string'
 
                 }
                 
