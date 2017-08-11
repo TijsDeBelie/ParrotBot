@@ -1,4 +1,5 @@
 //discord.js-commando
+require('dotenv').config();
 const { spawn } = require('child_process');
 const Discord = require('discord.js');
 const path = require('path');
@@ -6,7 +7,7 @@ const { CommandoClient, SQLiteProvider } = require('discord.js-commando');
 var express = require('express');
 var app = express();
 
-var key = process.env.KEY;
+var key = process.env.LOGINTOKEN;
 
 app.set('port', (process.env.PORT || 5000));
 
