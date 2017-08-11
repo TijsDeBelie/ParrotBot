@@ -67,7 +67,7 @@ client.login(key);
 
 
 
-//music client
+/*//music client
 
 const ytdl = require('ytdl-core');
 const musicclient = new Discord.Client();
@@ -93,7 +93,7 @@ musicclient.on('message', message => {
 
 
 musicclient.login(key);
-
+*/
 
 
 
