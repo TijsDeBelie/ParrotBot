@@ -34,29 +34,37 @@ module.exports = class SayCommand extends Command {
 
     run(msg, args) {
         if (msg.channel.type !== 'dm')
-            if (!msg.channel.permissionsFor(this.client.user).has('MANAGE_ROLES'))
+            if (!msg.channel.permissionsFor(this.client.user).has('MANAGE_ROLES')) {
                 return msg.say('Error! I don\'t have permission to Manage Roles!');
-        const { user, rank } = args;
 
-        let role = msg.guild.roles.find("name", rank);
 
-        // or the person who made the command: let member = message.member;
-        let userToModify = msg.mentions.members.first();
-        // Add the role!
+            } else {
 
-        try {
 
-            if (userToModify.addRole(role).catch(console.error)) {
-                return msg.say(userToModify + " has been added to: " + rank)
+                const { user, rank } = args;
+
+                let role = msg.guild.roles.find("name", rank);
+
+                // or the person who made the command: let member = message.member;
+                let userToModify = msg.mentions.members.first();
+                // Add the role!
+
+                try {
+
+                    if (userToModify.addRole(role).catch(console.error)) {
+                        return msg.say(userToModify + " has been added to: " + rank)
+                    }
+
+
+                } catch (ex) {
+
+                    console.log(ex.stack);
+                    msg.say("this command could not be executed, please make sure you are not adding a role to a bot or adding a role higher than your current role!")
+
+                }
             }
 
 
-        } catch (ex) {
-
-            console.log(ex.stack);
-            msg.say("this command could not be executed, please make sure you are not adding a role to a bot or adding a role higher than your current role!")
-
-        }
 
     }
 };
