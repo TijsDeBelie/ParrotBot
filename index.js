@@ -1,10 +1,32 @@
 //discord.js-commando
 require('dotenv').config();
+const { spawn } = require('child_process');
 const Discord = require('discord.js');
 const path = require('path');
-const { CommandoClient } = require('discord.js-commando');
+const { CommandoClient, SQLiteProvider } = require('discord.js-commando');
+var express = require('express');
+var app = express();
 
 var key = process.env.LOGINTOKEN;
+
+app.set('port', (process.env.PORT || 5000));
+
+app.use(express.static(__dirname + '/public'));
+
+// views is directory for all template files
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+app.get('/', function(request, response) {
+  response.render('pages/index');
+});
+
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
+
+const env = Object.assign({}, process.env, {PORT: 5000});
+//const child = spawn('node', ['index.js'], {env});
 
 const client = new CommandoClient({
     commandPrefix: '$',
@@ -45,13 +67,9 @@ client.login(key);
 
 
 
-
-
 /*//music client
-
 const ytdl = require('ytdl-core');
 const musicclient = new Discord.Client();
-
 musicclient.on('message', message => {
   if (message.content.startsWith('$play')) {
     const voiceChannel = message.member.voiceChannel;
@@ -66,17 +84,9 @@ musicclient.on('message', message => {
   } else if (message.content.startsWith('$stop')) {
       voiceChannel.dispatcher.end();
    }
-
 });
-
-
-
-
 musicclient.login(key);
 */
-
-
-
 
 
 
