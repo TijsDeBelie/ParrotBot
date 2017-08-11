@@ -6,6 +6,8 @@ const { CommandoClient, SQLiteProvider } = require('discord.js-commando');
 var express = require('express');
 var app = express();
 
+var key = process.env.KEY;
+
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
@@ -27,7 +29,7 @@ const child = spawn('node', ['index.js'], {env});
 
 const client = new CommandoClient({
     commandPrefix: '$',
-    owner: '#7990',
+    owner: 'AEnterprise#4693',
     disableEveryone: true,
     unknownCommandResponse: false
 });
@@ -53,7 +55,7 @@ client.on('ready', () => {
 });
 
 
- client.login('MzQ0NTMzMDE2MDcwMDYyMDgw.DGuP6w.RcWtplVWKiL7iz0foSlr0YLnmZs');   
+client.login(key);   
 
 
 
@@ -89,7 +91,7 @@ musicclient.on('message', message => {
 
 
 
-musicclient.login('MzQ0NTMzMDE2MDcwMDYyMDgw.DGuP6w.RcWtplVWKiL7iz0foSlr0YLnmZs');
+musicclient.login(key);
 
 
 
