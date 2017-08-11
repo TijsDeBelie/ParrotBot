@@ -41,8 +41,23 @@ module.exports = class SayCommand extends Command {
 
         let userToModify = msg.mentions.members.first();
      
-        if (userToModify.removeRole(role).catch(console.error)) {
+
+
+
+
+        try {
+
+            if (userToModify.removeRole(role).catch(console.error)) {
             return msg.say(userToModify + " has been removed from: " + rank)
         }
+
+
+        } catch (ex) {
+
+            console.log(ex.stack);
+            msg.say("this command could not be executed, please make sure you are not removing a role that has not been assigned to you!")
+
+        }
+
     }
 };

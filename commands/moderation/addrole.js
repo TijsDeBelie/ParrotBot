@@ -44,9 +44,19 @@ module.exports = class SayCommand extends Command {
         let userToModify = msg.mentions.members.first();
         // Add the role!
 
+        try {
 
-        if (userToModify.addRole(role).catch(console.error)) {
-            return msg.say(userToModify + " has been added to: " + rank)
+            if (userToModify.addRole(role).catch(console.error)) {
+                return msg.say(userToModify + " has been added to: " + rank)
+            }
+
+
+        } catch (ex) {
+
+            console.log(ex.stack);
+            msg.say("this command could not be executed, please make sure you are not adding a role to a bot or adding a role higher than your current role!")
+
         }
+
     }
 };
