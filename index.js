@@ -26,7 +26,7 @@ app.listen(app.get('port'), function() {
 });
 
 const env = Object.assign({}, process.env, {PORT: 5000});
-const child = spawn('node', ['index.js'], {env});
+//const child = spawn('node', ['index.js'], {env});
 
 const client = new CommandoClient({
     commandPrefix: '$',
