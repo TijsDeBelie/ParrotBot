@@ -1,15 +1,14 @@
-
 const { Command } = require('discord.js-commando');
 
 module.exports = class SayCommand extends Command {
     constructor(client) {
         super(client, {
-            name: 'addrole',
-            aliases: ['role'],
+            name: 'removerole',
+            aliases: [''],
             group: 'moderation',
-            memberName: 'addrole',
-            description: 'adds a role to the mentionned user',
-            examples: ['addrole @User rank'],
+            memberName: 'removerole',
+            description: 'remove a role to the mentionned user',
+            examples: ['removerole @User rank'],
             throttling: {
                 usages: 1,
                 duration: 10
@@ -22,7 +21,7 @@ module.exports = class SayCommand extends Command {
                 },
                 {
                     key: 'rank',
-                    prompt: 'wich rank should the mentionned user get?',
+                    prompt: 'wich rank should the mentionned user get removed?',
                     type: 'string'
 
                 }
@@ -40,13 +39,10 @@ module.exports = class SayCommand extends Command {
 
         let role = msg.guild.roles.find("name", rank);
 
-        // or the person who made the command: let member = message.member;
         let userToModify = msg.mentions.members.first();
-        // Add the role!
-
-
-        if (userToModify.addRole(role).catch(console.error)) {
-            return msg.say(userToModify + " has been added to: " + rank)
+     
+        if (userToModify.removeRole(role).catch(console.error)) {
+            return msg.say(userToModify + " has been removed from: " + rank)
         }
     }
 };

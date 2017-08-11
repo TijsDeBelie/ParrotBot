@@ -32,7 +32,8 @@ const client = new CommandoClient({
     commandPrefix: '$',
 	owner: '243275264497418250',
     disableEveryone: true,
-    unknownCommandResponse: false
+    unknownCommandResponse: false,
+    autoReconnect:true
 });
 
 client.registry
