@@ -36,7 +36,7 @@ module.exports = class SayCommand extends Command {
         const { user, rank } = args;
         let role = msg.guild.roles.find("name", rank);
             if (!msg.member.hasPermission('MANAGE_ROLES'))
-                return msg.say('Error! I don\'t have permission to Manage Roles!');
+                return msg.say('Error! You don\'t have permission to grant ' + rank + ' to ' + user + "!");
             else {
 
 
@@ -46,6 +46,7 @@ module.exports = class SayCommand extends Command {
                 try {
 
                     if (userToModify.addRole(role).catch(console.error)) {
+                       msg.delete();
                         return msg.say(userToModify + " has been added to: " + rank)
                     }
 
@@ -54,7 +55,7 @@ module.exports = class SayCommand extends Command {
 
                     console.log(ex.stack);
                     msg.say("this command could not be executed, please make sure you are not adding a role to a bot or adding a role higher than your current role!")
-
+                  
                 }
             }
 
