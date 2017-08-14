@@ -7,6 +7,7 @@ const { CommandoClient, SQLiteProvider } = require('discord.js-commando');
 var express = require('express');
 var app = express();
 var antispam = require("./automod.js");
+global.appRoot = path.resolve(__dirname);
 
 var key = process.env.LOGINTOKEN;
 
@@ -29,7 +30,7 @@ app.listen(app.get('port'), function() {
 const env = Object.assign({}, process.env, {PORT: 5000});
 //const child = spawn('node', ['index.js'], {env});
 
-const client = new CommandoClient({
+global.client = new CommandoClient({
     commandPrefix: '$',
 	owner: '243275264497418250',
     disableEveryone: true,
@@ -63,19 +64,17 @@ client.login(key);
 
 
  client.on("guildMemberAdd", (member) => {
-  console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` );
-  member.guild.defaultChannel.send(`"${member.user.username}" has joined this server`);
-channels.get('channelID').sendMessage('your message')
+    client.channels.get('325619660206637057').send(`Welcome, "${member.user.username}" has joined this server`);
 });
 
 antispam(client, {
-  warnBuffer: 2, //Maximum amount of messages allowed to send in the interval time before getting warned. 
+  warnBuffer: 1, //Maximum amount of messages allowed to send in the interval time before getting warned. 
   maxBuffer: 3, // Maximum amount of messages allowed to send in the interval time before getting banned. 
   interval: 1000, // Amount of time in ms users can send a maximum of the maxBuffer variable before getting banned. 
   warningMessage: "Stop spamming!", // Warning message send to the user indicating they are going to fast. 
   banMessage: "has been banned for spamming, anyone else?", // Ban message, always tags the banned user in front of it. 
-  maxDuplicatesWarning: 3, // Maximum amount of duplicate messages a user can send in a timespan before getting warned 
-  maxDuplicatesBan: 5 // Maximum amount of duplicate messages a user can send in a timespan before getting banned 
+  maxDuplicatesWarning: 2, // Maximum amount of duplicate messages a user can send in a timespan before getting warned 
+  maxDuplicatesBan: 4 // Maximum amount of duplicate messages a user can send in a timespan before getting banned 
 });
 
 /*

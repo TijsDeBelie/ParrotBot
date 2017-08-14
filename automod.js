@@ -1,6 +1,7 @@
 const authors = [];
-var warned = [];
-var banned = [];
+global.warned = [];
+global.banned = [];
+global.banlist = [];
 var messagelog = [];
 
 /**
@@ -11,13 +12,13 @@ var messagelog = [];
  */
 module.exports = function (bot, options) {
   // Set options
-  const warnBuffer = (options && options.prefix) || 3;
-  const maxBuffer = (options && options.prefix) || 5;
-  const interval = (options && options.interval) || 1000;
-  const warningMessage = (options && options.warningMessage) || "stop spamming or I'll whack your head off.";
+  const warnBuffer = (options && options.prefix) || 4;
+  const maxBuffer = (options && options.prefix) || 6;
+  const interval = (options && options.interval) || 2500;
+  const warningMessage = (options && options.warningMessage) || "Stop spamming!";
   const banMessage = (options && options.banMessage) || "has been banned for spamming, anyone else?";
-  const maxDuplicatesWarning = (options && options.duplicates || 7);
-  const maxDuplicatesBan = (options && options.duplicates || 10);
+  const maxDuplicatesWarning = (options && options.duplicates || 2);
+  const maxDuplicatesBan = (options && options.duplicates || 4);
 
   bot.on('message', msg => {
 
@@ -79,7 +80,10 @@ module.exports = function (bot, options) {
    * @param  {string} userid userid
    */
   function warn(msg, userid) {
-    warned.push(msg.author.id);
+    var user = msg.channel.guild.members.find(member => member.user.id === msg.author.id);
+    warned.push("\n" + user);
+    console.log(msg.content);
+    msg.delete();
     msg.channel.send(msg.author + " " + warningMessage);
   }
 
@@ -97,12 +101,16 @@ module.exports = function (bot, options) {
       }
     }
 
+    
+
     banned.push(msg.author.id);
 
     var user = msg.channel.guild.members.find(member => member.user.id === msg.author.id);
     if (user) {
       user.ban().then((member) => {
         msg.channel.send(msg.author + " " +banMessage);
+        client.channels.get('325619660206637057').send(msg.author + " " + banMessage);
+        banlist.push("\n" + msg.author + " " +banMessage);
         return true;
      }).catch((ex) => {
         msg.channel.send("insufficient permission to kick " + msg.author + " for spamming.");
@@ -112,4 +120,5 @@ module.exports = function (bot, options) {
     }
   }
 
+  
 }
