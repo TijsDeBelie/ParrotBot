@@ -6,6 +6,7 @@ const path = require('path');
 const { CommandoClient, SQLiteProvider } = require('discord.js-commando');
 var express = require('express');
 var app = express();
+var antispam = require("./automod.js");
 
 var key = process.env.LOGINTOKEN;
 
@@ -64,9 +65,28 @@ client.login(key);
  client.on("guildMemberAdd", (member) => {
   console.log(`New User "${member.user.username}" has joined "${member.guild.name}"` );
   member.guild.defaultChannel.send(`"${member.user.username}" has joined this server`);
-
+channels.get('channelID').sendMessage('your message')
 });
 
+antispam(client, {
+  warnBuffer: 2, //Maximum amount of messages allowed to send in the interval time before getting warned. 
+  maxBuffer: 3, // Maximum amount of messages allowed to send in the interval time before getting banned. 
+  interval: 1000, // Amount of time in ms users can send a maximum of the maxBuffer variable before getting banned. 
+  warningMessage: "Stop spamming!", // Warning message send to the user indicating they are going to fast. 
+  banMessage: "has been banned for spamming, anyone else?", // Ban message, always tags the banned user in front of it. 
+  maxDuplicatesWarning: 3, // Maximum amount of duplicate messages a user can send in a timespan before getting warned 
+  maxDuplicatesBan: 5 // Maximum amount of duplicate messages a user can send in a timespan before getting banned 
+});
+
+/*
+client.on("message", (message) => {
+//let's use something like a spam variable for 10 or more messages sent within 5000ms
+if(message.content === spam) {
+    message.reply("Warning: Spamming in this channel is forbidden.");
+    console.log(message.author.username + " (" + message.author.id + ") has sent 10 messages or more in 5 seconds in " + message.channel.name + ".");
+  }
+});
+*/
 
 
 /*//music client
