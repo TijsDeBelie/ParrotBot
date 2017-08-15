@@ -11,6 +11,11 @@ module.exports = class ReplyCommand extends Command {
         });
     }
     run(msg) {
-        return msg.say('Hi, I\'m awake!');
+     const responses = [
+        "Hello?","Who are you?","I have been summoned?","make your wish","yes Master?","My name is Jeff","Goodbye","...","Let me sleep...","Why do I even bother to reply", "Congrats you have succesfully subsribed to random cat facts"]
+
+   msg.channel.send(`${responses[Math.floor(Math.random() * responses.length)]}`);
+   msg.delete();
+
     }
 };

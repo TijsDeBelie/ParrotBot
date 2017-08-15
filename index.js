@@ -62,9 +62,25 @@ client.on('ready', () => {
 client.login(key);   
 
 
+client.on('guildMemberAdd', member => {
+  if (member.bot) {
+    let guild = member.guild;
+    const embed = new Discord.RichEmbed()
+    .setColor(0x00AE86)
+    .setTimestamp()
+    .addField('Bot Update',
+      `${member.user} Bot Joined. :wave:  `)
+    client.channels.find("name", "announcements").sendEmbed(embed); // change general to your preferred TEXT channel. 
+  } else {
 
- client.on("guildMemberAdd", (member) => {
-    client.channels.get('325619660206637057').send(`Welcome, "${member.user.username}" has joined this server`);
+  let guild = member.guild;
+  const embed = new Discord.RichEmbed()
+  .setColor(0x00AE86)
+  .setTimestamp()
+  .addField('Member Update',
+    `${member.user} has joined! :white_check_mark: `)
+  client.channels.find("name", "announcements").sendEmbed(embed); // change general to your preferred TEXT channel. 
+}
 });
 
 antispam(client, {
@@ -77,15 +93,42 @@ antispam(client, {
   maxDuplicatesBan: 4 // Maximum amount of duplicate messages a user can send in a timespan before getting banned 
 });
 
-/*
+
 client.on("message", (message) => {
-//let's use something like a spam variable for 10 or more messages sent within 5000ms
-if(message.content === spam) {
-    message.reply("Warning: Spamming in this channel is forbidden.");
-    console.log(message.author.username + " (" + message.author.id + ") has sent 10 messages or more in 5 seconds in " + message.channel.name + ".");
-  }
+const swearWords = [
+"Sonofabitch",
+"motherfucker",
+"pussy",
+"asshole",
+"assfuck",
+"fuckass",
+"dumbass",
+"dick",
+"twat",
+"skank",
+"slut",
+"bitch",
+"douche",
+"douchebag",
+"fuck"];
+if(swearWords.some(word => message.content.toLowerCase().includes(word)) ) {
+warnlist.push(message.author);
+console.log(warnlist);
+message.reply("Please watch the language");
+  message.delete()
+  
+  const embed = new Discord.RichEmbed()
+  .setColor("#FF0000")
+  .setAuthor(client.user.tag, client.user.displayAvatarURL)
+  .setTitle("⚠ Auto Warning ⚠")
+  .addField("Reason", "Bad Word")
+  message.author.send({embed})
+  
+}
+
+
 });
-*/
+
 
 
 /*//music client

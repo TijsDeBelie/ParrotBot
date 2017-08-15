@@ -17,12 +17,12 @@ module.exports = function (bot, options) {
   const interval = (options && options.interval) || 2500;
   const warningMessage = (options && options.warningMessage) || "Stop spamming!";
   const banMessage = (options && options.banMessage) || "has been banned for spamming, anyone else?";
-  const maxDuplicatesWarning = (options && options.duplicates || 2);
-  const maxDuplicatesBan = (options && options.duplicates || 4);
+  const maxDuplicatesWarning = (options && options.duplicates || 4);
+  const maxDuplicatesBan = (options && options.duplicates || 10);
 
   bot.on('message', msg => {
 
-    if(msg.author.id != bot.user.id){
+    if (msg.author.id != bot.user.id) {
       var now = Math.floor(Date.now());
       authors.push({
         "time": now,
@@ -102,24 +102,27 @@ module.exports = function (bot, options) {
       }
     }
 
-    
+
 
     banned.push(msg.author.id);
 
     var user = msg.channel.guild.members.find(member => member.user.id === msg.author.id);
     if (user) {
       user.ban().then((member) => {
-        msg.channel.send(msg.author + " " +banMessage);
+        msg.channel.send(msg.author + " " + banMessage);
         client.channels.get('325619660206637057').send(msg.author + " " + banMessage);
-        banlist.push("\n" + msg.author + " " +banMessage);
+        banlist.push("\n" + msg.author + " " + banMessage);
         return true;
-     }).catch((ex) => {
+      }).catch((ex) => {
         msg.channel.send("insufficient permission to kick " + msg.author + " for spamming.");
         console.log(ex);
         return false;
-     });
+      });
+
     }
   }
 
-  
+
+
+
 }
