@@ -64,8 +64,8 @@ module.exports = function (bot, options) {
         }
         else if (authors[i].time < now - interval) {
           authors.splice(i);
-          warned.splice(warned.indexOf(authors[i]));
-          banned.splice(warned.indexOf(authors[i]));
+          //warned.splice(warned.indexOf(authors[i]));
+          //banned.splice(warned.indexOf(authors[i]));
         }
         if (messagelog.length >= 200) {
           messagelog.shift();
@@ -80,8 +80,9 @@ module.exports = function (bot, options) {
    * @param  {string} userid userid
    */
   function warn(msg, userid) {
+    warnlist.push("<@" + userid + ">");
     var user = msg.channel.guild.members.find(member => member.user.id === msg.author.id);
-    warned.push("\n" + user);
+    warned.push("\n" + user + " Spamming");
     console.log(msg.content);
     msg.delete();
     msg.channel.send(msg.author + " " + warningMessage);
