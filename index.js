@@ -110,10 +110,9 @@ const swearWords = [
 "bitch",
 "douche",
 "douchebag",
-"fuck"];
+"fuck",
+"shit"];
 if(swearWords.some(word => message.content.toLowerCase().includes(word)) ) {
-warnlist.push(message.author);
-console.log(warnlist);
 message.reply("Please watch the language");
   message.delete()
   
@@ -127,7 +126,10 @@ message.reply("Please watch the language");
 }
 
 
+
+
 });
+
 
 
 
