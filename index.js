@@ -8,7 +8,7 @@ var express = require('express');
 var app = express();
 var antispam = require("./automod.js");
 global.appRoot = path.resolve(__dirname);
-
+var talkedRecently = [];
 var key = process.env.LOGINTOKEN;
 
 app.set('port', (process.env.PORT || 5000));
@@ -111,7 +111,21 @@ const swearWords = [
 "douche",
 "douchebag",
 "fuck",
-"shit"];
+"shit",
+"fuker",
+"niggers",
+"nigga",
+"d1ck",
+"cnt",
+"fking",
+"wtf",
+"bstrd",
+"btch",
+"ni**er",
+"homo",
+"gay",
+"lesbian",
+"paki"];
 if(swearWords.some(word => message.content.toLowerCase().includes(word)) ) {
 message.reply("Please watch the language");
   message.delete()
@@ -122,8 +136,34 @@ message.reply("Please watch the language");
   .setTitle("⚠ Auto Warning ⚠")
   .addField("Reason", "Bad Word")
   message.author.send({embed})
+
+
   
 }
+
+
+
+
+function checkAvailability(arr, val) {
+  return arr.some(function(arrVal) {
+    return val == arrVal;
+  });
+}
+
+
+var index = talkedRecently.indexOf(message.author.id);
+if (checkAvailability(talkedRecently, message.author.id)) {
+    message.delete();
+} else {
+  
+  talkedRecently.push(message.author.id.toString());
+}
+setTimeout(() => {
+  
+  if (index > -1) {
+    talkedRecently.splice(index, 1);
+}
+}, 2500);
 
 
 
