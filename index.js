@@ -163,7 +163,7 @@ setTimeout(() => {
   if (index > -1) {
     talkedRecently.splice(index, 1);
 }
-}, 2500);
+}, 750);
 
 
 
