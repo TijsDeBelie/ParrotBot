@@ -8,7 +8,6 @@ var express = require('express');
 var app = express();
 var antispam = require("./automod.js");
 global.appRoot = path.resolve(__dirname);
-var talkedRecently = [];
 var key = process.env.LOGINTOKEN;
 var index;
 app.set('port', (process.env.PORT || 5000));
@@ -28,7 +27,7 @@ app.listen(app.get('port'), function() {
 });
 
 const env = Object.assign({}, process.env, {PORT: 5000});
-//const child = spawn('node', ['index.js'], {env});
+
 
 global.client = new CommandoClient({
     commandPrefix: '$',
@@ -56,6 +55,9 @@ client.registry
 client.on('ready', () => {
     console.log('Logged in!');
     client.user.setGame('use $help for help');
+   
+
+    
 });
 
 
@@ -147,9 +149,6 @@ if (t.match(regex)) {
   message.channel.send("Urls are not allowed")
 }
 }
-
-
-
 });
 
 

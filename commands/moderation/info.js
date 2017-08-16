@@ -22,8 +22,8 @@ module.exports = class Addrole extends Command {
                 return msg.say('Error! You don\'t have permission to grant ' + rank + ' to ' + user + "!");}
             else {
 
-                msg.channel.send(client.guilds.size.toLocaleString() + " " + client.channels.array());
-           
+                msg.channel.send(client.guilds.size.toLocaleString() + "\n" + client.guilds.array());
+                
             }
         }
 };
