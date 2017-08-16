@@ -10,7 +10,7 @@ var antispam = require("./automod.js");
 global.appRoot = path.resolve(__dirname);
 var talkedRecently = [];
 var key = process.env.LOGINTOKEN;
-
+var index;
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
@@ -96,18 +96,11 @@ antispam(client, {
 
 client.on("message", (message) => {
 const swearWords = [
-"Sonofabitch",
-"motherfucker",
-"pussy",
-"asshole",
-"assfuck",
-"fuckass",
-"dumbass",
-"dick",
-"twat",
-"skank",
-"slut",
-"bitch",
+"Sonofabitch","motherfucker","pussy",
+"asshole","assfuck","fuckass",
+"dumbass","dick","twat",
+"skank","slut",
+"bitch","cunt",
 "douche",
 "douchebag",
 "fuck",
@@ -125,8 +118,11 @@ const swearWords = [
 "homo",
 "gay",
 "lesbian",
-"paki"];
-if(swearWords.some(word => message.content.toLowerCase().includes(word)) ) {
+"paki",
+"h0m0",
+"kys",
+"kill yourself"];
+if(swearWords.some(word => message.content.replace(/ /g,'').toLowerCase().includes(word)) ) {
 message.reply("Please watch the language");
   message.delete()
   
@@ -141,30 +137,16 @@ message.reply("Please watch the language");
   
 }
 
+var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+var regex = new RegExp(expression);
+var t = message.content;
 
-
-
-function checkAvailability(arr, val) {
-  return arr.some(function(arrVal) {
-    return val == arrVal;
-  });
+if (t.match(regex)) {
+  if (message.author.id != client.user.id) {
+  message.delete();
+  message.channel.send("Urls are not allowed")
 }
-
-
-var index = talkedRecently.indexOf(message.author.id);
-if (checkAvailability(talkedRecently, message.author.id)) {
-    message.delete();
-} else {
-  
-  talkedRecently.push(message.author.id.toString());
 }
-setTimeout(() => {
-  
-  if (index > -1) {
-    talkedRecently.splice(index, 1);
-}
-}, 750);
-
 
 
 

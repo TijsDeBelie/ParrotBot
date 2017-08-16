@@ -4,10 +4,10 @@ module.exports = class Banlist extends Command {
     constructor(client) {
         super(client, {
             name: 'banlist',
-            aliases: ['log'],
+            aliases: ['log', 'warnlist'],
             group: 'moderation',
             memberName: 'banlist',
-            description: 'Gives a list of recent warned and banned users',
+            description: 'Gives a list of warned and banned users',
             examples: ['$banlist'],
             throttling: {
                 usages: 1,
@@ -18,7 +18,7 @@ module.exports = class Banlist extends Command {
 
     run(msg) {
 
-       msg.channel.send("Warned users: " + warned + "\nBanned users: " + banlist);
+       msg.channel.send("Warned users: " + warnlist + "\nBanned users: " + banlist);
 
 
     }

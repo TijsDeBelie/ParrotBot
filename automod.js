@@ -12,13 +12,13 @@ var messagelog = [];
  */
 module.exports = function (bot, options) {
   // Set options
-  const warnBuffer = (options && options.prefix) || 4;
-  const maxBuffer = (options && options.prefix) || 6;
+  const warnBuffer = (options && options.prefix) || 3;
+  const maxBuffer = (options && options.prefix) || 5;
   const interval = (options && options.interval) || 2500;
   const warningMessage = (options && options.warningMessage) || "Stop spamming!";
   const banMessage = (options && options.banMessage) || "has been banned for spamming, anyone else?";
-  const maxDuplicatesWarning = (options && options.duplicates || 4);
-  const maxDuplicatesBan = (options && options.duplicates || 10);
+  const maxDuplicatesWarning = (options && options.duplicates || 3);
+  const maxDuplicatesBan = (options && options.duplicates || 5);
 
   bot.on('message', msg => {
 

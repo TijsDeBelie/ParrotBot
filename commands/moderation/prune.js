@@ -12,7 +12,7 @@ module.exports = class Prune extends Command {
                 prompt: "You must specify how many messages to clear",
                 type: "integer",
                 validate: m => {
-                    if (m < 100 || m > 1) return true;
+                    if (m < 100 || m >= 1) return true;
                     return 'Please specify a number between 2 and 100.'
                 }
             }]
@@ -31,7 +31,7 @@ module.exports = class Prune extends Command {
 
         message.channel.fetchMessages({ limit: number }).then(messages => {
             message.channel.bulkDelete(messages)
-            message.say(`Purged ${messages.size} messages.`)
+            message.channel.send(`Purged ${messages.size} messages.`)
             return;
         })
     }

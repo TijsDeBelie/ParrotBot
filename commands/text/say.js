@@ -17,13 +17,26 @@ module.exports = class SayCommand extends Command {
                     type: 'string'
                 }
             ]
-        });    
+        });
     }
 
     run(msg, args) {
         const { text } = args;
         msg.delete();
-        return msg.say(`\u180E${text}`);
-    
+
+
+        var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+        var regex = new RegExp(expression);
+        var t = msg.content;
+
+        if (t.match(regex)) {
+
+            msg.delete();
+            msg.channel.send("Urls are not allowed")
+
+        } else {
+
+            return msg.say(`\u180E${text}`);
+        }
     }
 };
