@@ -19,7 +19,7 @@ module.exports = class Addrole extends Command {
     run(msg, args) {
        
             if (!msg.member.hasPermission('ADMINISTRATOR')){
-                return msg.say('Error! You don\'t have permission to grant ' + rank + ' to ' + user + "!");}
+                return msg.say('Error! You don\'t have permission to use info');}
             else {
 
                 msg.channel.send(client.guilds.size.toLocaleString() + "\n" + client.guilds.array());
