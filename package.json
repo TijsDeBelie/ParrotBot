@@ -23,6 +23,7 @@
     "opusscript": "0.0.3",
     "querystring": "^0.2.0",
     "snekfetch": "^3.2.9",
+    "sqlite": "^2.8.0",
     "youtube-dl": "^1.11.1",
     "ytdl": "^0.7.0",
     "ytdl-core": "^0.15.1"

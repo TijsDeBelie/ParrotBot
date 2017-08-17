@@ -1,12 +1,13 @@
 //discord.js-commando
 require('dotenv').config();
 const { spawn } = require('child_process');
-const Discord = require('discord.js');
+global.Discord = require('discord.js');
 const path = require('path');
-const { CommandoClient, SQLiteProvider } = require('discord.js-commando');
+const { CommandoClient} = require('discord.js-commando');
 var express = require('express');
 var app = express();
 var antispam = require("./automod.js");
+require("./sql.js");
 global.appRoot = path.resolve(__dirname);
 var key = process.env.LOGINTOKEN;
 var index;
