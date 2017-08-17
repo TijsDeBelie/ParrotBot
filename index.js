@@ -56,7 +56,7 @@ client.registry
 client.on('ready', () => {
   console.log('Logged in!');
   client.user.setGame('use $help for help');
-
+  client.user.setPresence({ game: { name: `$help | Servers: ${client.guilds.size}`, type: 0 } });
 
 
 });
