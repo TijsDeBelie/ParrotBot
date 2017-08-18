@@ -13,12 +13,12 @@ var messagelog = [];
 module.exports = function (bot, options) {
   // Set options
   const warnBuffer = (options && options.prefix) || 3;
-  const maxBuffer = (options && options.prefix) || 5;
+  const maxBuffer = (options && options.prefix) || 6;
   const interval = (options && options.interval) || 2500;
   const warningMessage = (options && options.warningMessage) || "Stop spamming!";
-  const banMessage = (options && options.banMessage) || "has been banned for spamming, anyone else?";
-  const maxDuplicatesWarning = (options && options.duplicates || 3);
-  const maxDuplicatesBan = (options && options.duplicates || 5);
+  const banMessage = (options && options.banMessage) || "has been muted for spamming";
+  const maxDuplicatesWarning = (options && options.duplicates || 4);
+  const maxDuplicatesBan = (options && options.duplicates || 6);
 
   bot.on('message', msg => {
 
@@ -84,8 +84,8 @@ module.exports = function (bot, options) {
     var user = msg.channel.guild.members.find(member => member.user.id === msg.author.id);
     warned.push("\n" + user + " Spamming");
     console.log(msg.content);
-    msg.delete();
     msg.channel.send(msg.author + " " + warningMessage);
+    
   }
 
   /**
@@ -99,7 +99,15 @@ module.exports = function (bot, options) {
       if (messagelog[i].author == msg.author.id) {
         messagelog.splice(i);
 
-      }
+        let Punished = msg.guild.roles.find("name", "Punished");
+        let Trusted = msg.guild.roles.find("name", "Trusted");
+        let Member = msg.guild.roles.find("name", "Member");
+        let Admin = msg.guild.roles.find("name", "Admin");
+        msg.member.removeRole(Admin);
+        msg.member.removeRole(Trusted);
+        msg.member.removeRole(Member);
+        msg.member.addRole(Punished);
+        
     }
 
 
@@ -108,21 +116,16 @@ module.exports = function (bot, options) {
 
     var user = msg.channel.guild.members.find(member => member.user.id === msg.author.id);
     if (user) {
-      user.ban().then((member) => {
+      
         msg.channel.send(msg.author + " " + banMessage);
         client.channels.get('325619660206637057').send(msg.author + " " + banMessage);
         banlist.push("\n" + msg.author + " " + banMessage);
-        return true;
-      }).catch((ex) => {
-        msg.channel.send("insufficient permission to kick " + msg.author + " for spamming.");
-        console.log(ex);
-        return false;
-      });
-
+      
     }
   }
 
 
 
 
+}
 }
