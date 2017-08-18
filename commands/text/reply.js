@@ -12,7 +12,7 @@ module.exports = class ReplyCommand extends Command {
     }
     run(msg) {
      const responses = [
-        "Hello?","Who are you?","I have been summoned?","make your wish","yes Master?","My name is Jeff","Goodbye","...","Let me sleep...","Why do I even bother to reply", "Congrats you have succesfully subsribed to random cat facts"]
+        "Hello?","Who are you?","I have been summoned?","make your wish","yes Master?","My name is Jeff","Goodbye","...","Let me sleep...","Why do I even bother to reply", "Congrats you have succesfully subscribed to random cat facts","THIS IS SPARTAAAAAA","Huh, where am I?","Scotty, Beam me up","Leave me alone, I am busy"]
 
    msg.channel.send(`${responses[Math.floor(Math.random() * responses.length)]}`);
    msg.delete();
