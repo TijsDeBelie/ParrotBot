@@ -21,10 +21,10 @@ client.on("message", message => {
       let curLevel = Math.floor(0.1 * Math.sqrt(row.points + 1));
       if (curLevel > row.level) {
         row.level = curLevel;
-        sql.run(`UPDATE scores SET points = ${row.points + 20}, level = ${row.level} WHERE userId = ${message.author.id}`);
+        sql.run(`UPDATE scores SET points = ${row.points + 100}, level = ${row.level} WHERE userId = ${message.author.id}`);
         message.reply(`You've leveled up to level **${curLevel}**! Congrats`);
       }
-      sql.run(`UPDATE scores SET points = ${row.points + 20} WHERE userId = ${message.author.id}`);
+      sql.run(`UPDATE scores SET points = ${row.points + 100} WHERE userId = ${message.author.id}`);
     }
   }).catch(() => {
     console.error;
