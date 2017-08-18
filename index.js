@@ -60,6 +60,12 @@ client.on('ready', () => {
 
 
 });
+client.on('disconnect', function(event) {
+  if(event.code != 1000) {
+    console.log("Discord client disconnected with reason: " + event.reason + " (" + event.code + "). Attempting to reconnect in 6s...");
+    setTimeout(function(){ client.login(key); }, 6000);
+  }
+});
 
 
 client.login(key);
