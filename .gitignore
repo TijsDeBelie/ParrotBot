@@ -58,3 +58,4 @@ typings/
 .env
 leave.txt
 score.sqlite
+score.sqlite
