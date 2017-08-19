@@ -3,11 +3,11 @@ const { Command } = require('discord.js-commando');
 module.exports = class Addrole extends Command {
     constructor(client) {
         super(client, {
-            name: 'info',
+            name: 'server',
             group: 'moderation',
-            memberName: 'info',
+            memberName: 'server',
             description: 'displays how many guilds the bot is in',
-            examples: ['$info'],
+            examples: ['$server'],
             throttling: {
                 usages: 1,
                 duration: 10
