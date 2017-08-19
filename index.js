@@ -44,7 +44,8 @@ client.registry
     ["text", 'All commands for Text channels'],
     ['speech', 'All commands for Speech channels'],
     ['moderation', 'All moderation commands'],
-    ['trivia', 'Poll command']
+    ['trivia', 'Poll command'],
+    ['levels', 'All commands related to levels']
   ])
   .registerDefaultGroups()
   .registerDefaultCommands(
