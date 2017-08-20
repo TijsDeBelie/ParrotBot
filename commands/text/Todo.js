@@ -34,7 +34,7 @@ module.exports = class Todo extends Command {
 
     run(msg, args) {
         const { method, task } = args;
-        if (task == "" && add == "") {
+        if (task == "" && method == "") {
             sql.all(`SELECT task FROM todo WHERE userId="${msg.author.id}"`).then(rows => {
 
 
