@@ -47,7 +47,7 @@ module.exports = class Todo extends Command {
                         msg.channel.send("Please add something to your todolist first")
 
                     } else
-                    msg.channel.send("Your To-Do list :\n" + tasks);
+                    msg.channel.send(tasks);
             });
 
 
