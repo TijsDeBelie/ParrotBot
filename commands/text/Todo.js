@@ -2,7 +2,9 @@ const { Command } = require('discord.js-commando');
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const sql = require("sqlite");
-sql.open(appRoot + "./score.sqlite");
+const path = require('path')
+const dbPath = path.resolve(__dirname, 'score.sqlite')
+sql.open(dbPath);
 module.exports = class Todo extends Command {
     constructor(client) {
         super(client, {
@@ -61,7 +63,7 @@ module.exports = class Todo extends Command {
                 console.error;
                 sql.run("CREATE TABLE IF NOT EXISTS todo (userId TEXT, task TEXT)").then(() => {
                     sql.run("INSERT INTO todo (userId, task) VALUES (?, ?)", [msg.author.id, task]);
-                });
+                }).catch(() => {});
             });
 
 
