@@ -37,33 +37,39 @@ module.exports = class Todo extends Command {
     run(msg, args) {
         const { method, task } = args;
         if (task == "" && method == "") {
-            sql.all(`SELECT task FROM todo WHERE userId="${msg.author.id}"`).then(rows => {
+            sql.run("CREATE TABLE IF NOT EXISTS todo (userId TEXT, task TEXT)").then(row => {
+            
+                sql.all(`SELECT task FROM todo WHERE userId="${msg.author.id}"`).then(rows => {
 
 
-                var tasks = rows.map(function (item) {
-                    return item['task'];
-                });
-                    if(tasks == ""){
+                    var tasks = rows.map(function (item) {
+                        return item['task'];
+                    });
+                    if (tasks == "") {
                         msg.channel.send("Please add something to your todolist first")
 
                     } else
-                    msg.channel.send(tasks);
+                        msg.channel.send(tasks);
+                });
             });
 
-
         } else if (task != "" && method == "add") {
+            sql.run("CREATE TABLE IF NOT EXISTS todo (userId TEXT, task TEXT)").then(row => {
 
+                sql.get(`SELECT * FROM todo WHERE userId="${msg.author.id}"`).then(row => {
 
-            sql.get(`SELECT * FROM todo WHERE userId="${msg.author.id}"`).then(row => {
-
-                sql.run("INSERT INTO todo (userId, task) VALUES (?, ?)", [msg.author.id, task]);
-                msg.reply(`you have added a task \n` + task);
-
-            }).catch(() => {
-                console.error;
-                sql.run("CREATE TABLE IF NOT EXISTS todo (userId TEXT, task TEXT)").then(() => {
                     sql.run("INSERT INTO todo (userId, task) VALUES (?, ?)", [msg.author.id, task]);
-                }).catch(() => {});
+                    msg.reply(`you have added a task \n` + task);
+
+                }).catch(() => {
+                    console.error;
+                    sql.run("CREATE TABLE IF NOT EXISTS todo (userId TEXT, task TEXT)").then(() => {
+                        sql.run("INSERT INTO todo (userId, task) VALUES (?, ?)", [msg.author.id, task]);
+                    }).catch(() => {
+                        msg.channel.send("an error occured")
+
+                    });
+                });
             });
 
 
