@@ -131,7 +131,7 @@ client.on("message", (message) => {
     "d1ck",
     "cnt",
     "fking",
-    "wtf",
+    "what the fuck",
     "bstrd",
     "btch",
     "ni**er",
