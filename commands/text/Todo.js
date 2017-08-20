@@ -41,10 +41,11 @@ module.exports = class Todo extends Command {
                 var tasks = rows.map(function (item) {
                     return item['task'];
                 });
+                    if(tasks == ""){
+                        msg.channel.send("Please add something to your todolist first")
 
-
-
-                msg.channel.send(tasks);
+                    } else
+                    msg.channel.send("Your To-Do list :\n" + tasks);
             });
 
 
@@ -66,7 +67,9 @@ module.exports = class Todo extends Command {
 
         } else if (task != "" && method == "remove") {
             sql.run(`DELETE FROM todo WHERE task="${task}"`)
+
             msg.reply(`you have removed \n` + task);
+
         }
     }
 }
